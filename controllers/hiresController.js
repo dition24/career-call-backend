@@ -31,7 +31,7 @@ router.get("/hires", async (req, res) => {
   });
 
   // update route
-  router.put('/:id', async (req, res) => {
+  router.put('/hires/:id', async (req, res) => {
     try {
       res.status(200).json(
         await Jobs.findByIdAndUpdate(req.params.id, req.body, { new: true})
