@@ -12,6 +12,15 @@ router.get("/hires", async (req, res) => {
     }
   });
 
+  router.get("/hires/search", async (req, res) => {
+    try {
+      res.status(200).json(await Jobs.find({title: req.query.jobTitle}));
+    } catch (error) {
+      res.status(400).json({ message: "something went wrong" });
+    }
+  });
+
+  
   // delete route
   router.delete('/:id', async(req, res) => {
     try {
