@@ -51,7 +51,7 @@ router.get("/hires", async (req, res) => {
 });
 
 // show route
-router.get('/:id', async (req, res) => {
+router.get('/hires/:id', async (req, res) => {
   try {
     res.status(200).json ( await Jobs.findById(req.params.id))
   } catch(error) {
