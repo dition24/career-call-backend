@@ -22,7 +22,7 @@ router.get("/hires", async (req, res) => {
 
   
   // delete route
-  router.delete('/:id', async(req, res) => {
+  router.delete('/hires/:id', async(req, res) => {
     try {
       res.status(200).json(await Jobs.findByIdAndDelete(req.params.id))
     } catch (error) {
