@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router()
 const Jobs = require('../models/job')
 
+
 // index route
 router.get("/hires", async (req, res) => {
     try {
@@ -11,15 +12,52 @@ router.get("/hires", async (req, res) => {
     }
   });
 
-  // post route
-  router.post('/jobs', async (req, res) => {
+  router.get("/hires/search", async (req, res) => {
     try {
-        res.status(201).json(await Jobs.create(req.body))
+      res.status(200).json(await Jobs.find({title: req.query.jobTitle}));
+    } catch (error) {
+      res.status(400).json({ message: "something went wrong" });
+    }
+  });
+
+  
+  // delete route
+  router.delete('/hires/:id', async(req, res) => {
+    try {
+      res.status(200).json(await Jobs.findByIdAndDelete(req.params.id))
+    } catch (error) {
+      res.status(400).json({message: 'something went wrong'})
+    }
+  });
+
+  // update route
+  router.put('/hires/:id', async (req, res) => {
+    try {
+      res.status(200).json(
+        await Jobs.findByIdAndUpdate(req.params.id, req.body, { new: true})
+      );
+    } catch(eror) {
+      res.status(400).json ({message: 'something went wrong'})
+    }
+  })
+  
+  // create route
+  router.post('/hires', async (req, res) => {
+    try {
+        res.status(200).json(await Jobs.create(req.body))
     } catch (error) {
         res.status(400).json({message: 'something went wrong'})
     }
-})
+});
 
+// show route
+router.get('/hires/:id', async (req, res) => {
+  try {
+    res.status(200).json ( await Jobs.findById(req.params.id))
+  } catch(error) {
+    res.status(400).json({message: 'something went wrong'})
+  }
+})
 
 
 module.exports = router;
